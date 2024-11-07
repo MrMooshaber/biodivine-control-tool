@@ -58,6 +58,11 @@ let ComputeEngine = {
 		/** Updates compute engine status (UI progress bar + computation status).
 		 * 	If last computation was control, then creates new data for the UI function, else uses given ping response. */
 		_updateComputationStatus(status, response) {
+			if (status == "disconnected") {
+				UI.UpdateStatus.updateComputeEngineStatus("disconnected", {});
+				return;
+			};
+
 			if (ComputeEngine.Computation._computationType == "control") {
 				ComputeEngine.Computation.Control.getControlComputationStatus((e, r) => {
 					if (e !== undefined) {
